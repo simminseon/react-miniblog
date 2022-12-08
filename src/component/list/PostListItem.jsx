@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -21,10 +22,19 @@ const TitleText = styled.p`
   font-weight: 500;
 `;
 
-function PostListItem() {
+function PostListItem({ title, id }) {
+  // const params = useParams();
+  const navigate = useNavigate();
+
+  // const onClick = () => {
+  //   // console.log(params);
+  //   console.log(params);
+  //   console.log("test");
+  // };
   return (
-    <Wrapper>
-      <TitleText>텍스트</TitleText>
+    <Wrapper onClick={() => navigate(`/blogPost/${id}`)}>
+      {/* <TitleText onClick={() => navigate(`/blogPost:${id}`)}>{title}</TitleText> */}
+      <TitleText>{title}</TitleText>
     </Wrapper>
   );
 }

@@ -4,9 +4,11 @@ import PostListItem from "./PostListItem";
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: colum;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+
+  margin-top: 16px;
 
   & > * {
     :not(:last-child) {
@@ -15,10 +17,12 @@ const Wrapper = styled.div`
   }
 `;
 
-function PostList() {
+function PostList({ blogDataList }) {
   return (
     <Wrapper>
-      <PostListItem />
+      {blogDataList.map((data) => {
+        return <PostListItem key={data.id} id={data.id} title={data.title} />;
+      })}
     </Wrapper>
   );
 }
