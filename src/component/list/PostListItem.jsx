@@ -23,17 +23,10 @@ const TitleText = styled.p`
 `;
 
 function PostListItem({ title, id }) {
-  // const params = useParams();
   const navigate = useNavigate();
 
-  // const onClick = () => {
-  //   // console.log(params);
-  //   console.log(params);
-  //   console.log("test");
-  // };
   return (
     <Wrapper onClick={() => navigate(`/blogPost/${id}`)}>
-      {/* <TitleText onClick={() => navigate(`/blogPost:${id}`)}>{title}</TitleText> */}
       <TitleText>{title}</TitleText>
     </Wrapper>
   );
