@@ -12,7 +12,7 @@ function App() {
     <>
       <Header>소플의 미니 블로그</Header>
       <Container>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route path="/" element={<BlogList />} />
             <Route path="blogWrite" element={<BlogWrite />} />

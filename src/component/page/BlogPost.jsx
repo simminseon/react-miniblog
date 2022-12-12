@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import CommentList from "../list/CommentList";
-import data from "../data/data.json";
+import data from "../../data/data.json";
 
 const PostContainer = styled.div`
   padding: 8px 16px;
