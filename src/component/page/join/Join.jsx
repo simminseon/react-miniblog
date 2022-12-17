@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Label from "../../ui/Label";
-import { useInput } from "../../../hooks/useInput";
 import ErrorMessage from "../../ui/ErrorMessage";
 import { MemberContext, ADD_MEMBER } from "../../../App";
+import { useInput } from "../../../hooks/useInput";
 
 const StyledField = styled.div`
   padding-bottom: 20px;
@@ -13,7 +14,6 @@ const StyledField = styled.div`
 
 function Join() {
   const { memberData, dispatch } = useContext(MemberContext);
-
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [email, onChangeEmail] = useInput("");
@@ -22,13 +22,7 @@ function Join() {
   const [idError, setIdError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
-
-  const [member, setMember] = useState({
-    id,
-    password,
-    email,
-  });
-  // console.log(memberData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (password !== passwordCheck) {
@@ -38,56 +32,41 @@ function Join() {
     }
   }, [password, passwordCheck]);
 
-  // const checkValue = (id, password, email) => {
-  //   if (id.length <= 0) {
-  //     return setIdError(true);
-  //   }
-  //   // else {
-  //   //   setIdError(false);
-  //   // }
-  //   if (password.length <= 0) {
-  //     return setPasswordError(true);
-  //   }
-  //   // else {
-  //   //   setPasswordError(false);
-  //   // }
-  //   if (email.length <= 0) {
-  //     return setEmailError(true);
-  //   }
-  //   // else {
-  //   //   setEmailError(false);
-  //   // }
-
-  //   return true;
-  // };
-
   const onSubmitJoin = (e) => {
     e.preventDefault();
 
     if (id.length <= 0) {
       setIdError(true);
+      return;
     } else {
       setIdError(false);
     }
     if (password.length <= 0) {
       setPasswordError(true);
+      return;
     } else {
       setPasswordError(false);
     }
+    if (password !== passwordCheck) {
+      setPasswordCheckError(true);
+      return;
+    } else {
+      setPasswordCheckError(false);
+    }
     if (email.length <= 0) {
       setEmailError(true);
+      return;
     } else {
       setEmailError(false);
     }
-
-    // if (!checkValue(id, password, email)) {
-    //   return;
-    // }
 
     dispatch({
       type: ADD_MEMBER,
       memberData: [...memberData, { id: id, password: password, email: email }],
     });
+
+    alert("회원가입이 완료되었습니다.");
+    navigate("/login");
   };
 
   const onChangePasswordCheck = (e) => {
@@ -127,11 +106,9 @@ function Join() {
           onChange={onChangePasswordCheck}
           placeholder={"비밀번호를 한번 더 입력해주세요"}
         />
-        {/* {error} */}
         {passwordCheckError && (
           <ErrorMessage>비밀번호가 다릅니다.</ErrorMessage>
         )}
-        {/* {passwordError && <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>} */}
       </StyledField>
       <StyledField>
         <Label id={"inpEmail"}>이메일</Label>
