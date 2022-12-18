@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../ui/Button";
@@ -20,7 +20,7 @@ const StyledField = styled.div`
 `;
 
 function Login() {
-  const { memberData, user, dispatch } = useContext(MemberContext);
+  const { memberData, dispatch } = useContext(MemberContext);
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [idError, setIdError] = useState(false);

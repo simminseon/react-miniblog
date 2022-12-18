@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import PostList from "../../list/PostList";
-import data from "../../../data/data.json";
 import LoginInfo from "../../layout/LoginInfo";
 import { MemberContext } from "../../../App";
+import data from "../../../data/data.json";
 
 function BlogList() {
   const { login } = useContext(MemberContext);

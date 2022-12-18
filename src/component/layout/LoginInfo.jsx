@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { MemberContext, SET_LOGIN } from "../../App";
 import Button from "../ui/Button";
+import { MemberContext, SET_LOGIN } from "../../App";
+
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: end;

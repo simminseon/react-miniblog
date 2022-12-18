@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import Button from "../../ui/Button";
 import TextInput from "../../ui/TextInput";
 import CommentList from "../../list/CommentList";
