@@ -62,18 +62,26 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [memberData, setMemberData] = useState(null);
-  const [user, setUser] = useState(null);
+  const [memberData, setMemberData] = useState([]);
+  const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const localStorageMemberData = localStorage.getItem("memberData");
-    const parseMemberData = JSON.parse(localStorageMemberData);
-    setMemberData(parseMemberData);
+    if (localStorageMemberData === null) {
+      setMemberData([]);
+    } else {
+      const parseMemberData = JSON.parse(localStorageMemberData);
+      setMemberData(parseMemberData);
+    }
 
     const localStorageUserData = localStorage.getItem("user");
-    const parseUserData = JSON.parse(localStorageUserData);
-    setUser(parseUserData);
+    if (localStorageUserData === null) {
+      setUser({});
+    } else {
+      const parseUserData = JSON.parse(localStorageUserData);
+      setUser(parseUserData);
+    }
 
     setLogin(state.login);
   }, [state.memberData, state.user, state.login]);
