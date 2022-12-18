@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/react-miniblog/static/css/main.073c9b0a.css",
-    "main.js": "/react-miniblog/static/js/main.ae98b1fe.js",
+    "main.js": "/react-miniblog/static/js/main.2570f45e.js",
     "index.html": "/react-miniblog/index.html",
     "main.073c9b0a.css.map": "/react-miniblog/static/css/main.073c9b0a.css.map",
-    "main.ae98b1fe.js.map": "/react-miniblog/static/js/main.ae98b1fe.js.map"
+    "main.2570f45e.js.map": "/react-miniblog/static/js/main.2570f45e.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.ae98b1fe.js"
+    "static/js/main.2570f45e.js"
   ]
 }
