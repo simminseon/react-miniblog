@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Container from "./component/layout/Container";
 import Header from "./component/layout/Header";
@@ -8,32 +8,48 @@ import BlogWrite from "./component/page/blog/BlogWrite";
 import BlogPost from "./component/page/blog/BlogPost";
 import Login from "./component/page/login/Login";
 import Join from "./component/page/join/Join";
-import LoginInfo from "./component/layout/LoginInfo";
 
 const initialState = {
   memberData: [],
+  user: {},
   login: false,
 };
+
 export const MemberContext = createContext({
   memberData: [],
+  user: {},
   login: false,
   dispatch: () => {},
 });
 
 export const ADD_MEMBER = "ADD_MEMBER";
+export const SET_USER = "SET_USER";
 export const SET_LOGIN = "SET_LOGIN";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_MEMBER: {
       const memberData = action.memberData;
+      localStorage.setItem("memberData", JSON.stringify(memberData));
+
       return {
         ...state,
         memberData,
       };
     }
+    case SET_USER: {
+      const user = action.user;
+      localStorage.setItem("user", JSON.stringify(user));
+      return {
+        ...state,
+        user,
+      };
+    }
     case SET_LOGIN: {
       const login = action.login;
+      if (!login) {
+        localStorage.removeItem("user");
+      }
       return {
         login,
       };
@@ -46,11 +62,32 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [memberData, setMemberData] = useState(null);
+  const [user, setUser] = useState(null);
+  const [login, setLogin] = useState(false);
 
-  console.log("최상단", state.memberData);
+  useEffect(() => {
+    const localStorageMemberData = localStorage.getItem("memberData");
+    const parseMemberData = JSON.parse(localStorageMemberData);
+    setMemberData(parseMemberData);
+
+    const localStorageUserData = localStorage.getItem("user");
+    const parseUserData = JSON.parse(localStorageUserData);
+    setUser(parseUserData);
+
+    setLogin(state.login);
+  }, [state.memberData, state.user, state.login]);
+  console.log("멤버정보: ", memberData);
+  console.log("로그인: ", login);
+  console.log("로그인 유저: ", user);
   return (
     <MemberContext.Provider
-      value={{ memberData: state.memberData, login: state.login, dispatch }}
+      value={{
+        memberData: memberData,
+        user: user,
+        login: login,
+        dispatch,
+      }}
     >
       <Header>소플의 미니 블로그</Header>
       <Container>

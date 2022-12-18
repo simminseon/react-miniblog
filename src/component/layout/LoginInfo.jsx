@@ -15,27 +15,24 @@ const StyledText = styled.span`
 `;
 
 function LoginInfo() {
-  const { memberData, login } = useContext(MemberContext);
-  const [member, setMember] = useState({});
-  const [isLogin, setIsLogin] = useState({});
+  const { user, login, dispatch } = useContext(MemberContext);
   const navigate = useNavigate();
-  // console.log("멤버데이터:", memberData);
-  // console.log("로그인 정보:", login);
-  useEffect(() => {
-    setMember(memberData);
-    setIsLogin(login);
-    console.log(memberData);
-    console.log(login);
-  }, []);
-  // console.log(member);
+
+  const onClickLogout = () => {
+    dispatch({
+      type: SET_LOGIN,
+      login: false,
+    });
+  };
+
   return (
     <>
-      {isLogin ? (
+      {login ? (
         <StyledWrapper>
           <StyledText>
-            <strong>{}</strong>님이 로그인 하였습니다.
+            <strong>{user.id}</strong>님 안녕하세요!
           </StyledText>
-          <Button>로그아웃</Button>
+          <Button onClick={onClickLogout}>로그아웃</Button>
         </StyledWrapper>
       ) : (
         <StyledWrapper>

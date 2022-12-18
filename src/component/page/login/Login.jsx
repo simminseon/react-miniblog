@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../ui/Button";
@@ -6,7 +6,7 @@ import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import ErrorMessage from "../../ui/ErrorMessage";
 import { useInput } from "../../../hooks/useInput";
-import { MemberContext, SET_LOGIN } from "../../../App";
+import { MemberContext, SET_LOGIN, SET_USER } from "../../../App";
 
 const errorMessage = {
   emptyId: "아이디를 입력해주세요",
@@ -20,7 +20,7 @@ const StyledField = styled.div`
 `;
 
 function Login() {
-  const { memberData, dispatch } = useContext(MemberContext);
+  const { memberData, user, dispatch } = useContext(MemberContext);
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [idError, setIdError] = useState(false);
@@ -31,6 +31,7 @@ function Login() {
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
+
     const idCheck = memberData.filter((data) => {
       return data.id === id;
     });
@@ -46,6 +47,10 @@ function Login() {
           dispatch({
             type: SET_LOGIN,
             login: true,
+          });
+          dispatch({
+            type: SET_USER,
+            user: data,
           });
           navigate("/");
         } else {
